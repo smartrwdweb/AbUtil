@@ -3,6 +3,7 @@ package com.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -50,6 +51,23 @@ public class UtilServlet extends HttpServlet {
 		response.setContentType("text/html");
 		if ("compare".equalsIgnoreCase(type)) {
 			compareTwoList(request, response, out);
+		} else if ("listfiles".equalsIgnoreCase(type)) {
+			listfilesInFolder(request, response, out);
+		}
+	}
+
+	private void listfilesInFolder(HttpServletRequest request, HttpServletResponse response, PrintWriter out) {
+		String dir = request.getParameter("dir");
+		try {
+			Set<String> fileList = Utility.listFilesUsingFileWalkAndVisitor(dir);
+			out.println("<table class='form-control table-bordered'>");
+			for (String s : fileList) {
+				out.println("<tr><td>" + s + "</td></tr>");
+			}
+			out.println("</table>");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

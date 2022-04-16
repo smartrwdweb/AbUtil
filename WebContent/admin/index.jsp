@@ -57,6 +57,27 @@
 					</div>
 				</div>
 			</div>
+
+
+			<div class="card">
+				<div class="card-header">List Files Name</div>
+				<div class="card-body">
+
+					<div class="card-text mb-2">
+						<div class="row">
+							<div class="col-md-12">
+								File Path: <input type="text" class="form-control" id="filepath" /><br />
+								<button class="btn btn-primary mb-2" id="filelist">Listpath</button>
+								<button id="copyfileslist">Copy List</button>
+								<div id="filelistresult" class="mt-2">ttt</div>
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+
 			</main>
 		</div>
 	</div>
@@ -67,10 +88,20 @@
 
 		$('#compare').click(
 				function() {
-					var data1 = "type=compare&list1=" + $('#list1').val() + "&list2="
-							+ $('#list2').val();
+					var data1 = "type=compare&list1=" + $('#list1').val()
+							+ "&list2=" + $('#list2').val();
 					ajaxPOST(url, data1, '#result');
 				})
+		$('#filelist').click(function() {
+			var data1 = "type=listfiles&dir=" + $('#filepath').val();
+			ajaxPOST(url, data1, '#filelistresult');
+		})
+		$('#copyfileslist').click(function(){
+			var copyText = $('#filelistresult')
+			console.log(copyText.value)
+			copyToClipboard(copyText.value);
+			
+		})
 	</script>
 
 </body>
