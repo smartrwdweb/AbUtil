@@ -34,25 +34,44 @@
 			<div class="card">
 				<div class="card-header">Compare List</div>
 				<div class="card-body">
-					<h5 class="card-title">
-					<div class="row">
-					<div class="col-md-6">List1</div>
-					<div class="col-md-6">List2</div>
+					<div class="card-title">
+						<div class="row">
+							<div class="col-md-6">List1</div>
+							<div class="col-md-6">List2</div>
+						</div>
 					</div>
-					</h5>
-					<p class="card-text">
-					<div class="row">
-					<div class="col-md-6"><textarea rows="" cols="" class="form-control"></textarea></div>
-					<div class="col-md-6"><textarea rows="" cols="" class="form-control"></textarea></div>
+					<div class="card-text mb-2">
+						<div class="row">
+							<div class="col-md-6">
+								<textarea rows="" cols="" class="form-control" id="list1"></textarea>
+							</div>
+							<div class="col-md-6">
+								<textarea rows="" cols="" class="form-control" id="list2"></textarea>
+							</div>
+						</div>
+
 					</div>
-						
-					</p>
-					<a href="#" class="btn btn-primary">Compare</a>
+					<button class="btn btn-primary mb-2" id="compare">Compare</button>
+					<div class="card-text">
+						<div id="result"></div>
+					</div>
 				</div>
 			</div>
 			</main>
 		</div>
 	</div>
+	<%@include file="common/footer.jsp"%>
+
+	<script>
+		var url = "${pageContext.request.contextPath}/UtilServlet";
+
+		$('#compare').click(
+				function() {
+					var data1 = "type=compare&list1=" + $('#list1').val() + "&list2="
+							+ $('#list2').val();
+					ajaxPOST(url, data1, '#result');
+				})
+	</script>
 
 </body>
 </html>
